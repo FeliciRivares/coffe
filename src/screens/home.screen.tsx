@@ -19,11 +19,16 @@ import {MapPinIcon} from 'react-native-heroicons/solid';
 import {SearchBar} from '../components/search-bar.component';
 import {Categories} from '../components/categories.component';
 import {CoffeeCardsList} from '../components/coffee-cards-list.component';
+import { useRoute } from '@react-navigation/native';
 
 const {width, height} = Dimensions.get('window');
 const ios = Platform.OS == 'ios';
 
+
+
+
 export const HomeScreen = () => {
+
   const [activeCategory, setActiveCategory] = useState<number | null>(null);
   return (
     <View style={styles.wrapper}>
@@ -32,7 +37,7 @@ export const HomeScreen = () => {
         style={[styles.bgImage, {height: height * 0.2}]}
         source={require('../assets/img/beansBackground1.png')}
       />
-      <SafeAreaView style={{marginBottom: ios ? -8 : 0}}>
+      <SafeAreaView style={{marginBottom: 0}}>
         <View style={[styles.headerContainer, {width: width}]}>
           <Image
             style={styles.avatarImage}
@@ -60,11 +65,11 @@ export const HomeScreen = () => {
 
 const styles = StyleSheet.create({
   wrapper: {
+    flex: 1,
+    position: 'relative',
+    backgroundColor: '#fff',
     fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif',
     alignItems: 'center',
-    borderRadius: 50,
-    boxShadow:
-      '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
   },
   bgImage: {
     width: '100%',

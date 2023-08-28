@@ -1,6 +1,7 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { useMemo } from 'react';
 import {LogBox, StyleSheet, View} from 'react-native';
 import {Platform} from 'react-native';
 
@@ -14,10 +15,9 @@ import {
   HeartIcon as HeartSolid,
   ShoppingBagIcon as BagSolid,
 } from 'react-native-heroicons/solid';
-import { HomeScreen } from '../screens/home.screen';
-import { themeColors } from '../theme';
-
-export {NavigationContainer} from '@react-navigation/native';
+import { DetailedScreen } from '../screens/detailed.screen';
+import {HomeScreen} from '../screens/home.screen';
+import {themeColors} from '../theme';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -28,15 +28,20 @@ LogBox.ignoreLogs([
 
 export const AppNavigation = () => {
   return (
-    <NavigationContainer >
+    <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
-          contentStyle: {backgroundColor: 'white'},
+          contentStyle: {backgroundColor: '#fff'},
         }}>
         <Stack.Screen
-          name="Home"
+          name="home"
           options={{headerShown: false}}
           component={HomeTabs}
+        />
+         <Stack.Screen
+          name="detailed"
+          options={{headerShown: false}}
+          component={DetailedScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>
@@ -45,28 +50,27 @@ export const AppNavigation = () => {
 
 const HomeTabs = () => {
   return (
-    <Tab.Navigator 
-    screenOptions={({ route }) => ({
+    <Tab.Navigator
+      screenOptions={({route}) => ({
         headerShown: false,
         tabBarShowLabel: false,
-        tabBarIcon: ({ focused }) => menuIcons(route, focused),
+        tabBarIcon: ({focused}) => menuIcons(route, focused),
         tabBarStyle: {
           marginBottom: 20,
           height: 75,
           alignItems: 'center',
-          
+
           borderRadius: 100,
           marginHorizontal: 20,
           backgroundColor: themeColors.bgLight,
-
         },
         tabBarItemStyle: {
-          marginTop: ios? 30: 0,
-          
-        }
-      })}
-    >
-      <Tab.Screen name="home" component={HomeScreen} />
+          marginTop: 30,
+        },
+      })}>
+      <Tab.Screen name="hdvome" component={HomeScreen} />
+      <Tab.Screen name="detailed" component={DetailedScreen} />
+      <Tab.Screen name="cart" component={HomeScreen} />
     </Tab.Navigator>
   );
 };
@@ -80,7 +84,7 @@ const menuIcons = (route: any, focused: boolean) => {
     ) : (
       <HomeOutline size="30" strokeWidth={2} color="white" />
     );
-  } else if (route.name === 'favourite') {
+  } else if (route.name === 'detailed') {
     icon = focused ? (
       <HeartSolid size="30" color={themeColors.bgLight} />
     ) : (
@@ -94,22 +98,21 @@ const menuIcons = (route: any, focused: boolean) => {
     );
   }
 
-  const  buttonClass = focused ? '#fff' : '';
+  const buttonClass = focused ? '#fff' : '';
 
   return (
-    <View
-      style={[styles.button,{backgroundColor: buttonClass}]}>
-      {icon}
-    </View>
+    <View style={[styles.button, {backgroundColor: buttonClass}]}>{icon}</View>
   );
 };
 
-
 const styles = StyleSheet.create({
-    button: {
-        padding: 3,
-        alignItems: 'center',
-        borderRadius: 50, 
-        boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)'
-    },
-  });
+  button: {
+    padding: 3,
+    alignItems: 'center',
+    borderRadius: 50,
+    shadowColor: themeColors.bgDark,
+    shadowRadius: 25,
+    shadowOffset: {width: 0, height: 0},
+    shadowOpacity: 0.8,
+  },
+});

@@ -1,41 +1,26 @@
 import React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {Root} from './src/root';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-import { AppNavigation } from './src/navigation/app-navigation';
-
-
-
+  initialWindowMetrics,
+  SafeAreaProvider,
+} from 'react-native-safe-area-context';
+import {Provider} from 'react-redux';
+import {store} from './src/store';
+import './src/service/domain/app.service';
+import 'react-native-reanimated'
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
 const App = () => {
-  return(
-       <AppNavigation />
-  )
-}
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+  return (
+    <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+      <NavigationContainer>
+        <Provider store={store}>
+          <Root />
+        </Provider>
+      </NavigationContainer>
+    </SafeAreaProvider>
+  );
+};
 
 export default App;

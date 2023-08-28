@@ -9,9 +9,12 @@ import {
 } from 'react-native';
 import React, {FC} from 'react';
 import {themeColors} from '../theme';
-import {useNavigation} from '@react-navigation/native';
+import {RouteProp, useNavigation} from '@react-navigation/core';
 import {StarIcon} from 'react-native-heroicons/solid';
 import {PlusIcon} from 'react-native-heroicons/outline';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { useNav } from '../common/hooks/use-nav';
+import { UserRouteKey } from '../typing/enums/router-key.enum';
 
 
 const {width, height} = Dimensions.get('window');
@@ -24,7 +27,7 @@ interface IProps {
 }
 
 export const CoffeeCard: FC<IProps> = ({index, item}) => {
-  const navigation = useNavigation();
+const nav = useNav();
 
   return (
     <View style={styles.container}>
@@ -48,10 +51,7 @@ export const CoffeeCard: FC<IProps> = ({index, item}) => {
         <View style={styles.priceDetails}>
           <Text style={styles.text}>₴ {item.price}</Text>
           <TouchableOpacity
-            onPress={
-              () => console.log('Prod')
-              //  navigation.navigate('roduct', {...item})
-            }
+            onPress={()=> nav.navigate(UserRouteKey.Detailed, {...item})}
             style={styles.button}>
             <PlusIcon size="25" strokeWidth={2} color={themeColors.bgDark} />
           </TouchableOpacity>
