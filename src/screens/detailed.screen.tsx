@@ -2,15 +2,19 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import {StatusBar} from 'expo-status-bar';
 import {useState} from 'react';
 import {View, Image, StyleSheet} from 'react-native';
+import Animated from 'react-native-reanimated';
+import { buttonCardAnimation } from '../animation';
 
 export const DetailedScreen = ({props}: any) => {
-//   const item = props.route.params;
-const route = useRoute();
-console.log('------',route)
+  //   const item = props.route.params;
+  const route = useRoute();
   const [size, setSize] = useState('small');
   const navigation = useNavigation();
   return (
-    <View>
+    <Animated.View
+      sharedTransitionTag="tag"
+      sharedTransitionStyle={buttonCardAnimation} 
+     style={{zIndex: 14, backgroundColor: 'blue', width: 200, height: 100 }}>
       <StatusBar style="light" />
       <Image
         source={require('../assets/img/beansBackground2.png')}
@@ -20,7 +24,7 @@ console.log('------',route)
           borderBottomRightRadius: 50,
         }}
       />
-    </View>
+    </Animated.View>
   );
 };
 
@@ -31,5 +35,5 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     left: 0,
-  }
+  },
 });

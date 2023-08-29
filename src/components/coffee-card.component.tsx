@@ -15,10 +15,13 @@ import {PlusIcon} from 'react-native-heroicons/outline';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNav } from '../common/hooks/use-nav';
 import { UserRouteKey } from '../typing/enums/router-key.enum';
+import Animated from 'react-native-reanimated';
+import { buttonCardAnimation } from '../animation';
 
 
 const {width, height} = Dimensions.get('window');
 const ios = Platform.OS == 'ios';
+const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
 
 interface IProps {
   item?: any;
@@ -50,11 +53,15 @@ const nav = useNav();
 
         <View style={styles.priceDetails}>
           <Text style={styles.text}>₴ {item.price}</Text>
-          <TouchableOpacity
+          <AnimatedTouchable
+          style={[{ width: 20, height: 20 }, styles.button]}
+          sharedTransitionTag="tag"
+          sharedTransitionStyle={buttonCardAnimation} 
             onPress={()=> nav.navigate(UserRouteKey.Detailed, {...item})}
-            style={styles.button}>
+            // style={styles.button}
+            >
             <PlusIcon size="25" strokeWidth={2} color={themeColors.bgDark} />
-          </TouchableOpacity>
+          </AnimatedTouchable>
         </View>
       </View>
     </View>
