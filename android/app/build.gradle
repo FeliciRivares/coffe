@@ -73,9 +73,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.coffe"
+    namespace "com.coffee"
     defaultConfig {
-        applicationId "com.coffe"
+        applicationId "com.coffee"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
